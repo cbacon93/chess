@@ -5,4 +5,4 @@ class CFigure
     private:
     protected:
     public:
-}
+};
