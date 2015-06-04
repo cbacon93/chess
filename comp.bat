@@ -1,1 +1,1 @@
-g++ -o chess board.cpp figure.cpp main.cpp move.cpp
+g++ -o chess *.cpp figures/*.cpp
