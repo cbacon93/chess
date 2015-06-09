@@ -9,6 +9,6 @@ class CFPawn : public CFigure
     private:
     protected:
     public:
-        CFPawn(void);
+        CFPawn( int color );
         std::vector<CMove> getMoves(int x, int y);
 };

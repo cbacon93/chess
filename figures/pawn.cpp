@@ -1,9 +1,9 @@
 #include "pawn.hpp"
 
 
-CFPawn::CFPawn(void) {
+CFPawn::CFPawn(int color) {
+	m_color = color;
     m_movesList.push_back(CMove(0, 1));
-    
 }
 
 

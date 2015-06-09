@@ -11,7 +11,9 @@
 class CBoard 
 {
     private:
-        std::map< std::vector< std::vector<int> >, CFigure > m_board;
+        std::map<int,  std::map< int, CFigure* > > m_board;
     protected:
     public:
+		CBoard( void );
+		~CBoard();
 };
