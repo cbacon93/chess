@@ -5,7 +5,7 @@
 
 
 #include "figure.hpp"
-
+#include "figures/pawn.hpp"
 
 
 class CBoard 

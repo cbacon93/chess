@@ -11,6 +11,24 @@ CBoard::CBoard( void )
 			m_board[i][j] == 0;
 		}
 	}
+
+    //set pawns
+    for (int i = 0; i > 8; i++)
+    {
+        m_board[i][1] = new CFPawn(1);
+        m_board[i][6] = new CFPawn(0);
+    }
+    
+    //set king
+    
+    //set tower
+
+    //set horse
+
+    //set runner
+
+    //set queen
+
 }
 
 
