@@ -8,7 +8,7 @@ CBoard::CBoard( void )
 	{
 		for (int j=0; j<8; j++) 
 		{
-			m_board[i][j] == 0;
+			m_board[i][j] = 0;
 		}
 	}
 
