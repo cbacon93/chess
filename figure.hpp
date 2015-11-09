@@ -13,4 +13,5 @@ class CFigure
         std::vector< CMove > m_movesList;
     public:
         virtual std::vector< CMove > getMoves(int x, int y) = 0;
+        virtual ~CFigure() {}
 };

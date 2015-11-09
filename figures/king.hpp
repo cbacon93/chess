@@ -13,4 +13,5 @@ class CFKing : public CFigure
     public:
         CFKing( int color );
         std::vector<CMove> getMoves(int x, int y);
+        ~CFKing() {}
 };

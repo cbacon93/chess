@@ -11,4 +11,5 @@ class CFPawn : public CFigure
     public:
         CFPawn( int color );
         std::vector<CMove> getMoves(int x, int y);
+        ~CFPawn() {}
 };

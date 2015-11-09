@@ -13,4 +13,5 @@ class CFTower : public CFigure
     public:
         CFTower( int color );
         std::vector<CMove> getMoves(int x, int y);
+        ~CFTower() {}
 };
