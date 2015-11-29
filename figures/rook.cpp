@@ -4,6 +4,7 @@
 
 CFRook::CFRook(int color) {
 	m_color = color;
+    m_sign = 'R';
 
 	for (int i=1; i<= 9; i++) {
 		m_movesList.push_back(CMove(0, i));

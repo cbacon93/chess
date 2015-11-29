@@ -3,6 +3,8 @@
 
 CFKing::CFKing(int color) {
 	m_color = color;
+    m_sign = 'K';
+    
     m_movesList.push_back(CMove(0, 1));
     m_movesList.push_back(CMove(0, -1));
     m_movesList.push_back(CMove(1, 1));

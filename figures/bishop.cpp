@@ -4,6 +4,7 @@
 
 CFBishop::CFBishop(int color) {
     m_color = color;
+    m_sign = 'B';
     
     for (int i=1; i<= 9; i++) {
         m_movesList.push_back(CMove(i, i));

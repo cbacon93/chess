@@ -4,7 +4,7 @@
 
 CFKnight::CFKnight(int color) {
     m_color = color;
-    
+    m_sign = 'H';
 
     m_movesList.push_back(CMove(2, 1));
     m_movesList.push_back(CMove(2, -1));

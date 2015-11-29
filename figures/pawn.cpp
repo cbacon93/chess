@@ -3,6 +3,8 @@
 
 CFPawn::CFPawn(int color) {
 	m_color = color;
+    m_sign = 'P';
+    
     m_movesList.push_back(CMove(0, 1));
 }
 

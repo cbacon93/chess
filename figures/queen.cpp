@@ -11,6 +11,7 @@
 
 CFQueen::CFQueen(int color) {
     m_color = color;
+    m_sign = 'Q';
     
     for (int i=1; i<= 9; i++) {
         m_movesList.push_back(CMove(0, i));
