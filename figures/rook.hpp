@@ -6,12 +6,12 @@
 #include "../figure.hpp"
 #include "../move.hpp"
 
-class CFTower : public CFigure
+class CFRook : public CFigure
 {
     private:
     protected:
     public:
-        CFTower( int color );
+        CFRook( int color );
         std::vector<CMove> getMoves(int x, int y);
-        ~CFTower() {}
+        ~CFRook() {}
 };
