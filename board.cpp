@@ -53,8 +53,11 @@ CBoard::CBoard( void )
 
 
 void CBoard::printBoard() {
+    std::cout << "     A  B  C  D  E  F  G  H  " << std::endl << std::endl;
+    
     for (int i=0; i<8; i++)
     {
+        std::cout << std::to_string(i+1) << "    ";
         for (int j=0; j<8; j++)
         {
             if (m_board[j][i] != 0) {
@@ -65,6 +68,16 @@ void CBoard::printBoard() {
         }
         std::cout << std::endl;
     }
+    std::cout << std::endl;
+}
+
+
+
+void CBoard::userMove(int color) {
+    std::string input;
+    
+    std::cout << "Select figure: ";
+    std::cin >> input;
 }
 
 

@@ -23,4 +23,5 @@ class CBoard
 		~CBoard();
     
         void printBoard();
+        void userMove(int color);
 };
