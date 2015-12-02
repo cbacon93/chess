@@ -24,4 +24,5 @@ class CBoard
     
         void printBoard();
         void userMove(int color);
+        bool parseCoords(int &x, int &y, std::string input);
 };
