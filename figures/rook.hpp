@@ -8,10 +8,10 @@
 
 class CFRook : public CFigure
 {
-    private:
-    protected:
-    public:
-        CFRook( int color );
-        std::vector<CMove> getMoves(int x, int y);
-        ~CFRook() {}
+private:
+protected:
+public:
+    CFRook( int color );
+    std::vector<CMove> getMoves(int x, int y);
+    ~CFRook() {}
 };

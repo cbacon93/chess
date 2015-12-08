@@ -4,7 +4,12 @@
 
 CFKnight::CFKnight(int color) {
     m_color = color;
-    m_sign = 'H';
+    
+    if (m_color == 0) {
+        m_sign = "\u265E";
+    } else {
+        m_sign = "\u2658";
+    }
 
     m_movesList.push_back(CMove(2, 1));
     m_movesList.push_back(CMove(2, -1));

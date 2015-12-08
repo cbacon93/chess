@@ -2,8 +2,13 @@
 
 
 CFKing::CFKing(int color) {
-	m_color = color;
-    m_sign = 'K';
+	this->m_color = color;
+   
+    if (m_color == 0) {
+        this->m_sign = "\u265A";
+    } else {
+        this->m_sign = "\u2654";
+    }
     
     m_movesList.push_back(CMove(0, 1));
     m_movesList.push_back(CMove(0, -1));

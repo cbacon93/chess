@@ -4,7 +4,12 @@
 
 CFBishop::CFBishop(int color) {
     m_color = color;
-    m_sign = 'B';
+    
+    if (m_color == 0) {
+        m_sign = "\u265D";
+    } else {
+        m_sign = "\u2657";
+    }
     
     for (int i=1; i<= 9; i++) {
         m_movesList.push_back(CMove(i, i));

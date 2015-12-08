@@ -8,10 +8,10 @@
 
 class CFKing : public CFigure
 {
-    private:
-    protected:
-    public:
-        CFKing( int color );
-        std::vector<CMove> getMoves(int x, int y);
-        ~CFKing() {}
+private:
+protected:
+public:
+    CFKing( int color );
+    std::vector<CMove> getMoves(int x, int y);
+    ~CFKing() {}
 };

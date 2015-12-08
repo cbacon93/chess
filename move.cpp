@@ -7,7 +7,16 @@ CMove::CMove(int x, int y) {
 }
 
 
-void CMove::getMove(int & x, int & y) {
+const void CMove::getMove(int & x, int & y) {
     x = m_modx;
     y = m_mody;
+}
+
+
+
+CMove CMove::operator+(CMove &move) {
+    int x, y;
+    move.getMove(x, y);
+    
+    return CMove(x+m_modx, y+m_mody);
 }

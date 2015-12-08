@@ -1,10 +1,12 @@
-#include "board.hpp"
+#include "game.hpp"
 
 
 int main(int argv, char * argc[]) 
 {
-    CBoard board;
-    board.printBoard();
-    board.userMove(0);
-    return 1;
+    CGame game;
+    
+    while(game.move()) {}
+    
+    
+    return 0;
 }

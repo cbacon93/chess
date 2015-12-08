@@ -45,25 +45,25 @@ CBoard::CBoard( void )
     m_board[5][7] = new CFBishop(1);
 
     //set queen
-    m_board[3][0] = new CFBishop(0);
-    m_board[3][7] = new CFBishop(0);
+    m_board[3][0] = new CFQueen(0);
+    m_board[3][7] = new CFQueen(1);
 }
 
 
 
 
 void CBoard::printBoard() {
-    std::cout << "     A  B  C  D  E  F  G  H  " << std::endl << std::endl;
+    std::cout << "    A B C D E F G H " << std::endl << std::endl;
     
     for (int i=0; i<8; i++)
     {
-        std::cout << std::to_string(i+1) << "    ";
+        std::cout << std::to_string(i+1) << "   ";
         for (int j=0; j<8; j++)
         {
             if (m_board[j][i] != 0) {
                 std::cout << m_board[j][i]->getFigureSign() << " ";
             } else {
-                std::cout << "__ ";
+                std::cout << "- ";
             }
         }
         std::cout << std::endl;
@@ -104,6 +104,51 @@ bool CBoard::parseCoords(int &x, int &y, std::string input) {
     y = std::stoi(input.substr(1,1)) - 1;
     
     return true;
+}
+
+
+std::string CBoard::indexToCoords(int x, int y) {
+    std::string coords2 = "ABCDEFGH";
+    return coords2[x] + std::to_string(y+1);
+}
+
+
+
+bool CBoard::isValidField (CMove & move) {
+    int x, y;
+    move.getMove(x, y);
+    
+    if (x < 0 || y < 0)
+        return false;
+    
+    if (x > 7 || y > 7)
+        return false;
+    
+    return true;
+}
+
+
+
+
+CFigure* CBoard::getFigure(int x, int y) {
+    return m_board[x][y];
+}
+
+
+void CBoard::moveFigure(CMove &from, CMove &to) {
+    int tx, ty, fx, fy;
+    to.getMove(tx, ty);
+    from.getMove(fx, fy);
+    
+    //delete figure
+    if (m_board[tx][ty] != 0) {
+        delete m_board[tx][ty];
+        m_board[tx][ty] = 0;
+    }
+    
+    //move figure
+    m_board[tx][ty] = m_board[fx][fy];
+    m_board[fx][fy] = 0;
 }
 
 
