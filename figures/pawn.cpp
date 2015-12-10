@@ -1,4 +1,5 @@
 #include "pawn.hpp"
+#include "../movingPrefab.hpp"
 
 
 CFPawn::CFPawn(int color) {
@@ -11,25 +12,12 @@ CFPawn::CFPawn(int color) {
     }
     
     if (m_color == 0) {
-        m_movesList.push_back(CMove(0, 1));
+        m_movesList.push_back(MovingPrefab(0, 1, false, false));
+        m_movesList.push_back(MovingPrefab(1, 1, false, true, true));
+        m_movesList.push_back(MovingPrefab(-1, 1, false, true, true));
     } else {
-        m_movesList.push_back(CMove(0, -1));
+        m_movesList.push_back(MovingPrefab(0, -1, false, false));
+        m_movesList.push_back(MovingPrefab(1, -1, false, true, true));
+        m_movesList.push_back(MovingPrefab(-1, -1, false, true, true));
     }
-}
-
-
-std::vector<CMove> CFPawn::getMoves(int x, int y) {
-    std::vector<CMove> ret;
-    ret = m_movesList;
-
-    //pawn at the beginning
-    if (y==1) {
-        if (m_color == 0) {
-            ret.push_back(CMove(0, 2));
-        } else {
-            ret.push_back(CMove(0, -2));
-        }
-    }
-
-    return ret;
 }

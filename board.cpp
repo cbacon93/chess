@@ -73,82 +73,12 @@ void CBoard::printBoard() {
 
 
 
-void CBoard::userMove(int color) {
-    std::string input;
-    
-    std::cout << "Select figure: ";
-    std::cin >> input;
-    
-    int x,y;
-    parseCoords(x,y, input);
-    
-    std::cout << "Input Coords: " << x << " - " << y << std::endl;
+CFigure* CBoard::getFigure(Point &pt) {
+    return m_board[pt.getX()][pt.getY()];
 }
-
-
-
-bool CBoard::parseCoords(int &x, int &y, std::string input) {
-    std::string coords1 = "abcdefgh";
-    std::string coords2 = "ABCDEFGH";
-    size_t pos1 = coords1.find(input.substr(0,1));
-    size_t pos2 = coords2.find(input.substr(0,1));
-    
-    if (pos1 == std::string::npos && pos2 == std::string::npos)
-        return false;
-    
-    x = (int)pos1;
-    if (pos1 == std::string::npos) {
-        x = (int)pos2;
-    }
-    
-    y = std::stoi(input.substr(1,1)) - 1;
-    
-    return true;
-}
-
-
-std::string CBoard::indexToCoords(int x, int y) {
-    std::string coords2 = "ABCDEFGH";
-    return coords2[x] + std::to_string(y+1);
-}
-
-
-
-bool CBoard::isValidField (CMove & move) {
-    int x, y;
-    move.getMove(x, y);
-    
-    if (x < 0 || y < 0)
-        return false;
-    
-    if (x > 7 || y > 7)
-        return false;
-    
-    return true;
-}
-
-
-
 
 CFigure* CBoard::getFigure(int x, int y) {
     return m_board[x][y];
-}
-
-
-void CBoard::moveFigure(CMove &from, CMove &to) {
-    int tx, ty, fx, fy;
-    to.getMove(tx, ty);
-    from.getMove(fx, fy);
-    
-    //delete figure
-    if (m_board[tx][ty] != 0) {
-        delete m_board[tx][ty];
-        m_board[tx][ty] = 0;
-    }
-    
-    //move figure
-    m_board[tx][ty] = m_board[fx][fy];
-    m_board[fx][fy] = 0;
 }
 
 

@@ -1,5 +1,5 @@
 #include "bishop.hpp"
-
+#include "../movingPrefab.hpp"
 
 
 CFBishop::CFBishop(int color) {
@@ -11,16 +11,10 @@ CFBishop::CFBishop(int color) {
         m_sign = "\u2657";
     }
     
-    for (int i=1; i<= 9; i++) {
-        m_movesList.push_back(CMove(i, i));
-         m_movesList.push_back(CMove(-i, i));
-         m_movesList.push_back(CMove(i, -i));
-         m_movesList.push_back(CMove(-i, -i));
-    }
+    m_movesList.push_back(MovingPrefab(1, 1, true));
+    m_movesList.push_back(MovingPrefab(-1, 1, true));
+    m_movesList.push_back(MovingPrefab(1, -1, true));
+    m_movesList.push_back(MovingPrefab(-1, -1, true));
 }
 
-
-std::vector<CMove> CFBishop::getMoves(int x, int y) {
-    return m_movesList;
-}
 

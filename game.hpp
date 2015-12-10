@@ -10,6 +10,7 @@
 #include <iostream>
 
 #include "board.hpp"
+#include "point.hpp"
 
 class CGame {
 public:

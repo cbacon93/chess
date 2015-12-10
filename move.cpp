@@ -1,22 +1,51 @@
 #include "move.hpp"
+#include "board.hpp"
 
 
-CMove::CMove(int x, int y) {
-    m_modx = x;
-    m_mody = y;
+Move::Move(Point _from, Point _to) :
+from(Point(_from.getX(), _from.getY())), to(Point(_to.getX(), _to.getY()))
+{
+    fromfig = 0;
+    tofig = 0;
 }
 
 
-const void CMove::getMove(int & x, int & y) {
-    x = m_modx;
-    y = m_mody;
+Point Move::getFrom() {
+    return from;
 }
 
 
+Point Move::getTo() {
+    return to;
+}
 
-CMove CMove::operator+(CMove &move) {
-    int x, y;
-    move.getMove(x, y);
+
+void Move::doMove(CBoard &board)  {
+    deleteFigs();
+    fromfig = board.m_board[from.getX()][from.getY()];
+    tofig = board.m_board[to.getX()][to.getY()];
     
-    return CMove(x+m_modx, y+m_mody);
+    board.m_board[from.getX()][from.getY()] = 0;
+    board.m_board[to.getX()][to.getY()] = fromfig;
+}
+
+
+void Move::reverseMove(CBoard &board) {
+    board.m_board[from.getX()][from.getY()] = fromfig;
+    board.m_board[to.getX()][to.getY()] = tofig;
+}
+
+
+void Move::deleteFigs() {
+    if (fromfig != 0) {
+        delete fromfig;
+    }
+    if (tofig != 0) {
+        delete tofig;
+    }
+}
+
+
+Move::~Move() {
+    deleteFigs();
 }

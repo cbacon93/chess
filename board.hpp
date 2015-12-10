@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 
+#include "point.hpp"
 #include "move.hpp"
 #include "figure.hpp"
 #include "figures/pawn.hpp"
@@ -13,11 +14,14 @@
 #include "figures/rook.hpp"
 
 
+typedef std::map<int,  std::map< int, CFigure* > > chessboardmap;
+
 class CBoard 
 {
+    friend class Move;
     
 private:
-    std::map<int,  std::map< int, CFigure* > > m_board;
+    chessboardmap m_board;
     
 protected:
     
@@ -26,11 +30,6 @@ public:
     ~CBoard();
     
     void printBoard();
-    void userMove(int color);
-    bool parseCoords(int &x, int &y, std::string input);
-    std::string indexToCoords(int x, int y);
-    bool isValidField (CMove & move);
     CFigure* getFigure(int x, int y);
-    
-    void moveFigure(CMove &from, CMove &to);
+    CFigure* getFigure(Point &pt);
 };
