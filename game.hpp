@@ -11,6 +11,7 @@
 
 #include "board.hpp"
 #include "point.hpp"
+#include "chessAI.hpp"
 
 class CGame {
 public:
@@ -21,5 +22,6 @@ private:
     int m_userColor;
     int m_userTurn;
     CBoard m_board;
+    ChessAI cai;
     
 };

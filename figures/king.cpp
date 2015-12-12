@@ -3,7 +3,8 @@
 
 CFKing::CFKing(int color) {
 	this->m_color = color;
-   
+    m_figureValue = 10000;
+    
     if (m_color == 0) {
         this->m_sign = "\u265A";
     } else {

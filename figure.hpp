@@ -13,6 +13,7 @@ class CFigure
 private:
 protected:
     int m_color;
+    int m_figureValue;
     std::string m_sign;
     std::vector< MovingPrefab > m_movesList;
     
@@ -22,4 +23,6 @@ public:
     
     std::string getFigureSign() { return m_sign; }
     int getColor() { return m_color; }
+    
+    int getValue() { return m_figureValue; }
 };

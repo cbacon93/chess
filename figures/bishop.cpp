@@ -4,6 +4,7 @@
 
 CFBishop::CFBishop(int color) {
     m_color = color;
+    m_figureValue = 3;
     
     if (m_color == 0) {
         m_sign = "\u265D";

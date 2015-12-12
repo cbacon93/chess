@@ -18,7 +18,8 @@ MovingPrefab::MovingPrefab(int _dx, int _dy, bool _continuous, bool _allowBeat, 
     continuous = _continuous;
     allowBeat = _allowBeat;
     requireBeat = _requireBeat;
-    
+    requireXPos = false;
+    requireYPos = false;
     
     if (_reqX >= 0) {
         reqX = _reqX;
@@ -35,6 +36,8 @@ MovingPrefab::MovingPrefab(int _dx, int _dy, bool _continuous, bool _allowBeat, 
 std::vector< Move > MovingPrefab::getMoves(Point & point, CBoard & board) {
     std::vector< Move > moves = std::vector< Move >();
     
+    CFigure * figure = board.getFigure(point);
+    
     for (int i=1; i<=8; i++) {
         Point pt = Point(point.getX() + i*dx, point.getY() + i*dy);
         if (!pt.isValid()) break;
@@ -44,14 +47,20 @@ std::vector< Move > MovingPrefab::getMoves(Point & point, CBoard & board) {
             break;
         }
         
+        CFigure * endfig = board.getFigure(pt);
+        if (endfig != 0 && figure != 0) {
+            if (endfig->getColor() == figure->getColor()) {
+                break;
+            }
+        }
         
-        if (board.getFigure(pt) != 0) {
+        if (endfig != 0) { // there is figure to beat
             if (allowBeat) {
                 moves.push_back(Move(point, pt));
             }
             break;
-        } else {
-            if (requireBeat) {
+        } else { // no figure to beat
+            if (!requireBeat) {
                 moves.push_back(Move(point, pt));
             }
         }

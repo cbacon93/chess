@@ -32,4 +32,6 @@ public:
     void printBoard();
     CFigure* getFigure(int x, int y);
     CFigure* getFigure(Point &pt);
+    
+    int evaluateBoard(int color);
 };

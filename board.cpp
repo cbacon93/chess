@@ -83,6 +83,35 @@ CFigure* CBoard::getFigure(int x, int y) {
 
 
 
+
+int CBoard::evaluateBoard(int color) {
+    int value = 0;
+    
+    //figure values
+    for (int i=0; i<8; i++)
+    {
+        for (int j=0; j<8; j++)
+        {
+            if (m_board[i][j] != 0) {
+                if (m_board[i][j]->getColor() == 0) {
+                    value += m_board[i][j]->getValue();
+                } else {
+                    value -= m_board[i][j]->getValue();
+                }
+            }
+        }
+    }
+
+    
+    //return value
+    if (color == 1) {
+        return -value;
+    }
+    return value;
+}
+
+
+
 CBoard::~CBoard( void )
 {
 	//erase functions board

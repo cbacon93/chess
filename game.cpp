@@ -63,18 +63,18 @@ bool CGame::move() {
             }
             std::cout << " - " << nfigure->getFigureSign() << std::endl;
             
-            /*//display possible movements for figure
+            //display possible movements for figure
             std::cout << "Possible target fields: ";
-            std::vector< Move > moves = nfigure->getMoves(x, y);
-            Move curr_field = Move(x,y);
+            std::vector< Move > moves = nfigure->getMoves(point1, m_board);
+            if (moves.size() <= 0) {
+                std::cout << "No Fields found!" << std::endl;
+                continue;
+            }
+            
+            
             for (int i=0; i < moves.size(); i++) {
-                Move move = moves[i]+curr_field;
-                if (m_board.isValidField(move)) {
-                    int tmpx, tmpy;
-                    move.getMove(tmpx, tmpy);
-                    std::cout << m_board.indexToCoords(tmpx, tmpy) << ", ";
-                }
-            }*/
+                std::cout << moves[i].getTo().toString() << ", ";
+            }
             
             
             //get target field
@@ -91,6 +91,21 @@ bool CGame::move() {
             //move figure
             Move move = Move(point1, point2);
             //m_board
+            bool validMove = false;
+            for (int i=0; i < moves.size(); i++) {
+                if (moves[i].compareTo(move)) {
+                    validMove = true;
+                    break;
+                }
+            }
+            
+            if (validMove) {
+                move.doMove(m_board);
+                std::cout << "Move done" << std::endl;
+            } else {
+                std::cout << "Move invalid" << std::endl;
+                continue;
+            }
             
             break;
         }
@@ -100,6 +115,9 @@ bool CGame::move() {
     //computers turn
     else {
         std::cout << "Calculating..." << std::endl;
+        Move targetmove = cai.getNextMove(m_board, m_userTurn);
+        targetmove.doMove(m_board);
+        std::cout << "Computer moved " << targetmove.getMovedFig()->getFigureSign() << " from " << targetmove.getFrom().toString() << " to " << targetmove.getTo().toString() << std::endl;
     }
     
     

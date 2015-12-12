@@ -19,10 +19,13 @@ private:
     
 public:
     Move(Point from, Point to);
+    Move();
     ~Move();
     Point getFrom();
     Point getTo();
     
     void doMove(CBoard &board);
     void reverseMove(CBoard &board);
+    bool compareTo (Move &move);
+    CFigure * getMovedFig() { return fromfig; }
 };
