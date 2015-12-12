@@ -23,3 +23,6 @@ This is a settings class, for all possible moves of a figure
 
 ### Point
 This the class to save a board point, parse coordinate strings and turn coordinates into strings (eg. "G4")
+
+### _figures/*_
+All figure classes
