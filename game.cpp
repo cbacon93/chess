@@ -137,7 +137,6 @@ bool CGame::move() {
     std::string playername = (m_userTurn==0) ? "Black" : "White";
     if (check && !checkorremis) {
         std::cout << playername + " is checked" << std::endl;
-        return false;
     } else if (checkorremis && !check) {
         std::cout << "Game is remis" << std::endl;
         return false;
