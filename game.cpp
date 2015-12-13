@@ -130,5 +130,16 @@ bool CGame::move() {
     
     //other users turn
     m_userTurn = (m_userTurn==0)?1:0;
+    
+    //check if check mate or remis
+    int cmor = cai.playerIsCheckmateOrRemis(m_board, m_userTurn);
+    if (cmor == 0) {
+        std::cout << "Black player is check mate or remis" << std::endl;
+        return false;
+    } else if (cmor == 1) {
+        std::cout << "White player is check mate or remis" << std::endl;
+        return false;
+    }
+    
     return true;
 }

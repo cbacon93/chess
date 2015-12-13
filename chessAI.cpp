@@ -16,7 +16,7 @@ ChessAI::ChessAI():startEbene(2)  {};
 
 
 Move ChessAI::getNextMove(CBoard & board, int color) {
-    startEbene = 3;
+    startEbene = 4;
     Move move = Move();
     doAllMoves(board, color, startEbene, move);
     return move;
@@ -24,7 +24,21 @@ Move ChessAI::getNextMove(CBoard & board, int color) {
 
 
 
-int ChessAI::doAllMoves(CBoard & board, int color, int ebenen, Move & savemove) {
+int ChessAI::playerIsCheckmateOrRemis(CBoard & board, int nextPlayerRound) {
+    Move move = Move();
+    int value = doAllMoves(board, nextPlayerRound, 2, move);
+    
+    if (value <= -8000) {
+        return (nextPlayerRound==0)?0:1;
+    } else if (value >= 8000) {
+        return (nextPlayerRound==0)?1:0;
+    }
+    return -1;
+}
+
+
+
+int ChessAI::doAllMoves(CBoard & board, int color, int ebenen, Move & savemove, int alpha, int beta) {
     
     //get all moves
     std::vector< Move > moves = std::vector< Move >();
@@ -48,15 +62,18 @@ int ChessAI::doAllMoves(CBoard & board, int color, int ebenen, Move & savemove) 
     }
     
     //do every move
-    int bestValue = -99999999;
+    int bestValue = alpha;
     for(int i=0; i< moves.size(); i++) {
         moves[i].doMove(board);
         Move move = Move();
-        int value = -doAllMoves(board, (color==0)?1:0 , ebenen -1, move);
+        int value = -doAllMoves(board, (color==0)?1:0 , ebenen -1, move, -beta, -bestValue);
         moves[i].reverseMove(board);
         
         if (value > bestValue) {
             bestValue = value;
+            
+            if (value >= beta)
+                break;
             
             //save move
             if (ebenen == startEbene) {
