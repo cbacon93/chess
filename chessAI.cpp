@@ -24,16 +24,26 @@ Move ChessAI::getNextMove(CBoard & board, int color) {
 
 
 
-int ChessAI::playerIsCheckmateOrRemis(CBoard & board, int nextPlayerRound) {
+bool ChessAI::playerIsCheckmateOrRemis(CBoard & board, int player) {
     Move move = Move();
-    int value = doAllMoves(board, nextPlayerRound, 2, move);
+    int value = doAllMoves(board, player, 2, move);
     
     if (value <= -8000) {
-        return (nextPlayerRound==0)?0:1;
-    } else if (value >= 8000) {
-        return (nextPlayerRound==0)?1:0;
+        return true;
     }
-    return -1;
+    return false;
+}
+
+
+bool ChessAI::playerIsCheck(CBoard & board, int player) {
+    int color = (player == 0)?1:0;
+    Move move = Move();
+    int value = doAllMoves(board, color, 1, move);
+    
+    if (value >= 8000) {
+        return true;
+    }
+    return false;
 }
 
 

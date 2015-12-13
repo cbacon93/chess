@@ -19,5 +19,6 @@ private:
 public:
     ChessAI();
     Move getNextMove(CBoard & board, int color);
-    int playerIsCheckmateOrRemis(CBoard & board, int nextPlayerRound);
+    bool playerIsCheckmateOrRemis(CBoard & board, int player);
+    bool playerIsCheck(CBoard & board, int player);
 };
