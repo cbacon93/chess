@@ -12,11 +12,13 @@
 #include "board.hpp"
 #include "point.hpp"
 #include "chessAI.hpp"
+#include "enpassantflag.hpp"
 
 class CGame {
 public:
     CGame();
     bool move();
+    EnpassantFlag eflag;
     
 private:
     int m_userColor;

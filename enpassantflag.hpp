@@ -12,12 +12,18 @@
 
 class EnpassantFlag {
 private:
-    Point point;
+    Point hitpoint;
+    Point figurepoint;
     CFigure * figure;
+    bool enpassantFlag = false;
     
 public:
-    EnpassantFlag(Point &pt);
+    void setEnpassantFlag(Point &hitpoint, Point & figurepoint);
     void doMove(CBoard & board);
     void reverseMove(CBoard & board);
+    bool getFlag() { return enpassantFlag; }
+    void resetFlag() { enpassantFlag = false; }
     ~EnpassantFlag();
+    
+    const Point & getHitPoint() const { return hitpoint; }
 };

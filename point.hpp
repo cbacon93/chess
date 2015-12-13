@@ -17,6 +17,8 @@ private:
 public:
     Point(int _x, int _y) { x = _x; y = _y; }
     Point(std::string);
+    Point() { x = 0; y = 0; }
+    
     int getX() { return x; }
     int getY() { return y; }
     void setX(int _x) { x = _x; }

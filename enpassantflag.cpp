@@ -9,8 +9,11 @@
 #include "enpassantflag.hpp"
 
 
-EnpassantFlag::EnpassantFlag(Point &pt)
-: point(pt) {}
+void EnpassantFlag::setEnpassantFlag(Point &_hitpoint, Point & _figurepoint) {
+    hitpoint = _hitpoint;
+    figurepoint = _figurepoint;
+    enpassantFlag = true;
+}
 
 
 EnpassantFlag::~EnpassantFlag() {
@@ -21,10 +24,13 @@ EnpassantFlag::~EnpassantFlag() {
 
 
 void EnpassantFlag::doMove(CBoard & board) {
-    figure = board.m_board[point.getX()][point.getY()];
+    figure = board.m_board[figurepoint.getX()][figurepoint.getY()];
+    enpassantFlag = false;
 }
 
 
 void EnpassantFlag::reverseMove(CBoard &board) {
-    board.m_board[point.getX()][point.getY()] = figure;
+    board.m_board[figurepoint.getX()][figurepoint.getY()] = figure;
+    figure = 0;
+    enpassantFlag = true;
 }

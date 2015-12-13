@@ -21,6 +21,10 @@ private:
     bool isRochade;
     int rochadeX;
     
+    
+    //enpassant
+    bool flagEnpassant = false;;
+    Point enpassantPoint;
 public:
     Move(Point from, Point to, int _rochadeX = -1);
     Move();
@@ -33,4 +37,6 @@ public:
     bool compareTo (Move &move);
     CFigure * getMovedFig() { return fromfig; }
     int getRochadeX() { return rochadeX; }
+    
+    void setEnpassantFlag(Point & pt) { flagEnpassant = true; enpassantPoint = pt; }
 };

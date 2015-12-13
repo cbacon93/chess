@@ -29,8 +29,15 @@ private:
     
     bool isRochade;
     int rochadeRookX;
+    
+    //enpassant
+    bool setEnpassantFlag = false;
+    int enpassantDx;
+    int enpassantDy;
 public:
     MovingPrefab(int _dx, int _dy, bool _continuous = false, bool _allowBeat = true, bool _requireBeat = false, int _reqX = -1, int _reqY = -1,  int _rochadeRookX = -1);
+    
+    void setEnpassantMove(int _dx, int _dy);
     
     void getMoves(Point & point, CBoard & board, std::vector< Move > & moves) const;
 };

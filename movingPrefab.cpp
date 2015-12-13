@@ -98,13 +98,27 @@ void MovingPrefab::getMoves(Point & point, CBoard & board, std::vector< Move > &
             }
         }
         
+        bool pushbackMove = false;
+        
         if (endfig != 0) { // there is figure to beat
             if (allowBeat) {
-                moves.push_back(Move(point, pt, rochadeRookX));
+                pushbackMove = true;
             }
             break;
         } else { // no figure to beat
             if (!requireBeat) {
+                pushbackMove = true;
+            }
+        }
+        
+        
+        if (pushbackMove) {
+            if (setEnpassantFlag) {
+                Move mv = Move(point, pt, rochadeRookX);
+                Point epassantpt = Point(point.getX() + enpassantDx, point.getY() + enpassantDy);
+                mv.setEnpassantFlag(epassantpt);
+                moves.push_back(mv);
+            } else {
                 moves.push_back(Move(point, pt, rochadeRookX));
             }
         }
@@ -112,6 +126,15 @@ void MovingPrefab::getMoves(Point & point, CBoard & board, std::vector< Move > &
         
         if (!continuous) break;
     }
+}
+
+
+
+
+void MovingPrefab::setEnpassantMove(int _dx, int _dy) {
+    setEnpassantFlag = true;
+    enpassantDx = _dx;
+    enpassantDy = _dy;
 }
 
 
