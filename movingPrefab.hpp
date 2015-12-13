@@ -26,8 +26,11 @@ private:
     bool requireYPos;
     int reqX;
     int reqY;
-public:
-    MovingPrefab(int _dx, int _dy, bool _continuous = false, bool _allowBeat = true, bool _requireBeat = false, int _reqX = -1, int _reqY = -1);
     
-    std::vector< Move > getMoves(Point & point, CBoard & board);
+    bool isRochade;
+    int rochadeRookX;
+public:
+    MovingPrefab(int _dx, int _dy, bool _continuous = false, bool _allowBeat = true, bool _requireBeat = false, int _reqX = -1, int _reqY = -1,  int _rochadeRookX = -1);
+    
+    void getMoves(Point & point, CBoard & board, std::vector< Move > & moves) const;
 };

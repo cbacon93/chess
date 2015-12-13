@@ -65,7 +65,9 @@ bool CGame::move() {
             
             //display possible movements for figure
             std::cout << "Possible target fields: ";
-            std::vector< Move > moves = nfigure->getMoves(point1, m_board);
+            std::vector< Move > moves = std::vector< Move >();
+            nfigure->getMoves(point1, m_board, moves);
+            
             if (moves.size() <= 0) {
                 std::cout << "No Fields found!" << std::endl;
                 continue;
@@ -95,6 +97,7 @@ bool CGame::move() {
             for (int i=0; i < moves.size(); i++) {
                 if (moves[i].compareTo(move)) {
                     validMove = true;
+                    move = moves[i];
                     break;
                 }
             }

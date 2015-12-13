@@ -18,7 +18,7 @@ protected:
     std::vector< MovingPrefab > m_movesList;
     
 public:
-    std::vector< Move > getMoves(Point & point, CBoard & board);
+    void getMoves(Point & point, CBoard & board, std::vector< Move > & moves) const;
     virtual ~CFigure() {}
     
     std::string getFigureSign() { return m_sign; }

@@ -11,7 +11,7 @@
 
 
 
-MovingPrefab::MovingPrefab(int _dx, int _dy, bool _continuous, bool _allowBeat, bool _requireBeat, int _reqX, int _reqY) {
+MovingPrefab::MovingPrefab(int _dx, int _dy, bool _continuous, bool _allowBeat, bool _requireBeat, int _reqX, int _reqY, int _rochadeRookX) {
     dx = _dx;
     dy = _dy;
     
@@ -20,6 +20,10 @@ MovingPrefab::MovingPrefab(int _dx, int _dy, bool _continuous, bool _allowBeat, 
     requireBeat = _requireBeat;
     requireXPos = false;
     requireYPos = false;
+    isRochade = false;
+    rochadeRookX = -1;
+    reqX = -1;
+    reqY = -1;
     
     if (_reqX >= 0) {
         reqX = _reqX;
@@ -30,12 +34,15 @@ MovingPrefab::MovingPrefab(int _dx, int _dy, bool _continuous, bool _allowBeat, 
         reqY = _reqY;
         requireYPos = true;
     }
+    
+    if (_rochadeRookX >= 0) {
+        rochadeRookX = _rochadeRookX;
+        isRochade = true;
+    }
 }
 
 
-std::vector< Move > MovingPrefab::getMoves(Point & point, CBoard & board) {
-    std::vector< Move > moves = std::vector< Move >();
-    
+void MovingPrefab::getMoves(Point & point, CBoard & board, std::vector< Move > & moves) const {
     CFigure * figure = board.getFigure(point);
     
     for (int i=1; i<=8; i++) {
@@ -54,22 +61,57 @@ std::vector< Move > MovingPrefab::getMoves(Point & point, CBoard & board) {
             }
         }
         
+        //rochade
+        if (isRochade) {
+            Point rookpt = Point(rochadeRookX, point.getY());
+            CFigure * rookfig = board.getFigure(rookpt);
+            CFRook* cfrook = 0;
+            if (rookfig != 0) {
+                bool isrook = true;
+                try {
+                    cfrook = dynamic_cast<CFRook*>(rookfig);
+                    if (isrook == 0) {
+                        isrook = false;
+                    }
+                } catch (...) {
+                    isrook = false;
+                }
+                
+                if (!isrook) {
+                    break;
+                }
+                
+                //check space in between
+                if (rochadeRookX > point.getX()) {
+                    if (board.getFigure(point.getX()+1, point.getY()) != 0)
+                        break;
+                    if (board.getFigure(point.getX()+2, point.getY()) != 0)
+                        break;
+                } else {
+                    if (board.getFigure(point.getX()-1, point.getY()) != 0)
+                        break;
+                    if (board.getFigure(point.getX()-2, point.getY()) != 0)
+                        break;
+                    if (board.getFigure(point.getX()-3, point.getY()) != 0)
+                        break;
+                }
+            }
+        }
+        
         if (endfig != 0) { // there is figure to beat
             if (allowBeat) {
-                moves.push_back(Move(point, pt));
+                moves.push_back(Move(point, pt, rochadeRookX));
             }
             break;
         } else { // no figure to beat
             if (!requireBeat) {
-                moves.push_back(Move(point, pt));
+                moves.push_back(Move(point, pt, rochadeRookX));
             }
         }
         
         
         if (!continuous) break;
     }
-    
-    return moves;
 }
 
 

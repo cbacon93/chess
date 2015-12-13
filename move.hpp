@@ -17,8 +17,12 @@ private:
     
     void deleteFigs();
     
+    
+    bool isRochade;
+    int rochadeX;
+    
 public:
-    Move(Point from, Point to);
+    Move(Point from, Point to, int _rochadeX = -1);
     Move();
     ~Move();
     Point getFrom();
@@ -28,4 +32,5 @@ public:
     void reverseMove(CBoard &board);
     bool compareTo (Move &move);
     CFigure * getMovedFig() { return fromfig; }
+    int getRochadeX() { return rochadeX; }
 };

@@ -2,11 +2,18 @@
 #include "board.hpp"
 
 
-Move::Move(Point _from, Point _to) :
+Move::Move(Point _from, Point _to, int _rochadeX) :
 from(Point(_from.getX(), _from.getY())), to(Point(_to.getX(), _to.getY()))
 {
     fromfig = 0;
     tofig = 0;
+    isRochade = false;
+    rochadeX = -1;
+    
+    if (_rochadeX >= 0) {
+        isRochade = true;
+        rochadeX = _rochadeX;
+    }
 }
 
 
@@ -28,17 +35,56 @@ Point Move::getTo() {
 
 void Move::doMove(CBoard &board)  {
     deleteFigs();
-    fromfig = board.m_board[from.getX()][from.getY()];
-    tofig = board.m_board[to.getX()][to.getY()];
     
-    board.m_board[from.getX()][from.getY()] = 0;
-    board.m_board[to.getX()][to.getY()] = fromfig;
+    //rochade move
+    if (isRochade) {
+        fromfig = board.m_board[from.getX()][from.getY()];
+        tofig = board.m_board[rochadeX][from.getY()];
+        
+        board.m_board[from.getX()][from.getY()] = 0;
+        board.m_board[rochadeX][from.getY()] = 0;
+        
+        board.m_board[to.getX()][to.getY()] = fromfig;
+        if (to.getX() > from.getX()) {
+            board.m_board[to.getX()-1][to.getY()] = tofig;
+        } else {
+            board.m_board[to.getX()+1][to.getY()] = tofig;
+        }
+    }
+    
+    //other move
+    else {
+    
+        fromfig = board.m_board[from.getX()][from.getY()];
+        tofig = board.m_board[to.getX()][to.getY()];
+    
+        board.m_board[from.getX()][from.getY()] = 0;
+        board.m_board[to.getX()][to.getY()] = fromfig;
+    }
+    
+    
 }
 
 
 void Move::reverseMove(CBoard &board) {
-    board.m_board[from.getX()][from.getY()] = fromfig;
-    board.m_board[to.getX()][to.getY()] = tofig;
+    //rochade move
+    if (isRochade) {
+        board.m_board[from.getX()][from.getY()] = fromfig;
+        board.m_board[rochadeX][from.getY()] = tofig;
+        
+        board.m_board[to.getX()][to.getY()] = 0;
+        if (to.getX() > from.getX()) {
+            board.m_board[to.getX()-1][to.getY()] = 0;
+        } else {
+            board.m_board[to.getX()+1][to.getY()] = 0;
+        }
+    }
+    
+    //other move
+    else {
+        board.m_board[from.getX()][from.getY()] = fromfig;
+        board.m_board[to.getX()][to.getY()] = tofig;
+    }
     
     fromfig = 0;
     tofig = 0;
@@ -49,7 +95,7 @@ void Move::deleteFigs() {
     /*if (fromfig != 0) {
         delete fromfig;
     }*/
-    if (tofig != 0) {
+    if (tofig != 0 && !isRochade) {
         delete tofig;
     }
 }

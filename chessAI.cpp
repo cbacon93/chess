@@ -16,7 +16,7 @@ ChessAI::ChessAI():startEbene(2)  {};
 
 
 Move ChessAI::getNextMove(CBoard & board, int color) {
-    startEbene = 2;
+    startEbene = 3;
     Move move = Move();
     doAllMoves(board, color, startEbene, move);
     return move;
@@ -36,8 +36,7 @@ int ChessAI::doAllMoves(CBoard & board, int color, int ebenen, Move & savemove) 
             if (figure != 0) {
                 if (figure->getColor() == color) {
                     Point pt = Point(i, j);
-                    std::vector< Move > figmv = figure->getMoves(pt, board);
-                    moves.insert(moves.end(), figmv.begin(), figmv.end());
+                    figure->getMoves(pt, board, moves);
                 }
             }
         }
