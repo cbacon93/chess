@@ -1,5 +1,6 @@
 #include "move.hpp"
 #include "board.hpp"
+#include "enpassantflag.hpp"
 
 
 Move::Move(Point _from, Point _to, int _rochadeX) :
@@ -63,6 +64,28 @@ void Move::doMove(CBoard &board)  {
     }
     
     
+}
+
+void Move::doMove(CBoard &board, EnpassantFlag &eflag)  {
+    doMove(board);
+    
+    if (flagEnpassant) {
+        eflag.setEnpassantFlag(enpassantPoint, to);
+    }
+    if (hitEnpassant) {
+        eflag.doMove(board);
+    }
+}
+
+void Move::reverseMove(CBoard &board, EnpassantFlag &eflag) {
+    reverseMove(board);
+    
+    if (flagEnpassant) {
+        eflag.resetFlag();
+    }
+    if (hitEnpassant) {
+        eflag.reverseMove(board);
+    }
 }
 
 

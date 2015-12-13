@@ -7,6 +7,7 @@
 //
 
 #include "enpassantflag.hpp"
+#include "figure.hpp"
 
 
 void EnpassantFlag::setEnpassantFlag(Point &_hitpoint, Point & _figurepoint) {
@@ -24,7 +25,12 @@ EnpassantFlag::~EnpassantFlag() {
 
 
 void EnpassantFlag::doMove(CBoard & board) {
+    if (figure != 0) {
+        delete figure;
+    }
+    
     figure = board.m_board[figurepoint.getX()][figurepoint.getY()];
+    board.m_board[figurepoint.getX()][figurepoint.getY()] = 0;
     enpassantFlag = false;
 }
 

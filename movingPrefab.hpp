@@ -9,6 +9,8 @@
 #pragma once
 #include <vector>
 
+class EnpassantFlag;
+
 #include "point.hpp"
 #include "move.hpp"
 #include "board.hpp"
@@ -34,10 +36,13 @@ private:
     bool setEnpassantFlag = false;
     int enpassantDx;
     int enpassantDy;
+    
+    bool enableEnpassantHitting = false;
 public:
     MovingPrefab(int _dx, int _dy, bool _continuous = false, bool _allowBeat = true, bool _requireBeat = false, int _reqX = -1, int _reqY = -1,  int _rochadeRookX = -1);
     
     void setEnpassantMove(int _dx, int _dy);
+    void setEnpassantHitting() { enableEnpassantHitting = true; }
     
-    void getMoves(Point & point, CBoard & board, std::vector< Move > & moves) const;
+    void getMoves(Point & point, CBoard & board, std::vector< Move > & moves, EnpassantFlag* eflag = 0) const;
 };

@@ -7,7 +7,7 @@
 //
 
 #include "movingPrefab.hpp"
-
+#include "enpassantflag.hpp"
 
 
 
@@ -42,7 +42,7 @@ MovingPrefab::MovingPrefab(int _dx, int _dy, bool _continuous, bool _allowBeat, 
 }
 
 
-void MovingPrefab::getMoves(Point & point, CBoard & board, std::vector< Move > & moves) const {
+void MovingPrefab::getMoves(Point & point, CBoard & board, std::vector< Move > & moves, EnpassantFlag* eflag) const {
     CFigure * figure = board.getFigure(point);
     
     for (int i=1; i<=8; i++) {
@@ -122,6 +122,18 @@ void MovingPrefab::getMoves(Point & point, CBoard & board, std::vector< Move > &
                 moves.push_back(Move(point, pt, rochadeRookX));
             }
         }
+        
+        
+        //enpassant
+        if (eflag != 0 && enableEnpassantHitting && endfig == 0) {
+            if (eflag->getFlag() && eflag->getHitPoint().compateTo(pt)) {
+                Move mv = Move(point, pt, rochadeRookX);
+                mv.setHitEnpassant();
+                moves.push_back(mv);
+            }
+        }
+        
+        
         
         
         if (!continuous) break;

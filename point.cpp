@@ -18,19 +18,23 @@ Point::Point(std::string input) {
     size_t pos2 = coords2.find(input.substr(0,1));
     parseSuccessful = true;
     
-    if (pos1 == std::string::npos && pos2 == std::string::npos) {
-        x = 0;
-        y = 0;
+    try {
+        if (pos1 == std::string::npos && pos2 == std::string::npos) {
+            x = 0;
+            y = 0;
+            parseSuccessful = false;
+            return;
+        }
+    
+        x = (int)pos1;
+        if (pos1 == std::string::npos) {
+            x = (int)pos2;
+        }
+    
+        y = std::stoi(input.substr(1,1)) - 1;
+    } catch (...) {
         parseSuccessful = false;
-        return;
     }
-    
-    x = (int)pos1;
-    if (pos1 == std::string::npos) {
-        x = (int)pos2;
-    }
-    
-    y = std::stoi(input.substr(1,1)) - 1;
 }
 
 
@@ -38,7 +42,7 @@ Point::Point(std::string input) {
 
 
 //check if point is inside field
-bool Point::isValid() {
+bool Point::isValid() const {
     
     if (x < 0 || y < 0)
         return false;
@@ -50,8 +54,14 @@ bool Point::isValid() {
 }
 
 
+bool Point::compateTo(Point & pt) const {
+    if (pt.getX() == x && pt.getY() == y)
+        return true;
+    return false;
+}
 
-std::string Point::toString() {
+
+std::string Point::toString() const {
     std::string coords2 = "ABCDEFGH";
     return coords2[x] + std::to_string(y+1);
 }

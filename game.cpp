@@ -66,7 +66,7 @@ bool CGame::move() {
             //display possible movements for figure
             std::cout << "Possible target fields: ";
             std::vector< Move > moves = std::vector< Move >();
-            nfigure->getMoves(point1, m_board, moves);
+            nfigure->getMoves(point1, m_board, moves, &eflag);
             
             if (moves.size() <= 0) {
                 std::cout << "No Fields found!" << std::endl;
@@ -103,7 +103,7 @@ bool CGame::move() {
             }
             
             if (validMove) {
-                move.doMove(m_board);
+                move.doMove(m_board, eflag);
                 std::cout << "Move done" << std::endl;
             } else {
                 std::cout << "Move invalid" << std::endl;
@@ -119,7 +119,7 @@ bool CGame::move() {
     else {
         std::cout << "Calculating..." << std::endl;
         Move targetmove = cai.getNextMove(m_board, m_userTurn);
-        targetmove.doMove(m_board);
+        targetmove.doMove(m_board, eflag);
         std::cout << "Computer moved " << targetmove.getMovedFig()->getFigureSign() << " from " << targetmove.getFrom().toString() << " to " << targetmove.getTo().toString() << std::endl;
     }
     

@@ -19,12 +19,13 @@ public:
     Point(std::string);
     Point() { x = 0; y = 0; }
     
-    int getX() { return x; }
-    int getY() { return y; }
+    int getX() const { return x; }
+    int getY() const { return y; }
     void setX(int _x) { x = _x; }
     void setY(int _y) { y = _y; }
     
-    bool isValid();
-    bool parsedValid() { return parseSuccessful; }
-    std::string toString();
+    bool isValid() const;
+    bool parsedValid() const { return parseSuccessful; }
+    bool compateTo(Point & pt) const;
+    std::string toString() const;
 };

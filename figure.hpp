@@ -6,6 +6,7 @@ class Move;
 class MovingPrefab;
 class Point;
 class CBoard;
+class EnpassantFlag;
 
 
 class CFigure
@@ -18,7 +19,7 @@ protected:
     std::vector< MovingPrefab > m_movesList;
     
 public:
-    void getMoves(Point & point, CBoard & board, std::vector< Move > & moves) const;
+    void getMoves(Point & point, CBoard & board, std::vector< Move > & moves, EnpassantFlag* eflag = 0) const;
     virtual ~CFigure() {}
     
     std::string getFigureSign() { return m_sign; }
