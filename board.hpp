@@ -19,6 +19,7 @@ typedef std::map<int,  std::map< int, CFigure* > > chessboardmap;
 class CBoard 
 {
     friend class Move;
+    friend class EnpassantFlag;
     
 private:
     chessboardmap m_board;
