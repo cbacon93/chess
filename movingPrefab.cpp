@@ -95,6 +95,8 @@ void MovingPrefab::getMoves(Point & point, CBoard & board, std::vector< Move > &
                     if (board.getFigure(point.getX()-3, point.getY()) != 0)
                         break;
                 }
+            } else {
+                break;
             }
         }
         
@@ -104,7 +106,6 @@ void MovingPrefab::getMoves(Point & point, CBoard & board, std::vector< Move > &
             if (allowBeat) {
                 pushbackMove = true;
             }
-            break;
         } else { // no figure to beat
             if (!requireBeat) {
                 pushbackMove = true;
@@ -121,15 +122,20 @@ void MovingPrefab::getMoves(Point & point, CBoard & board, std::vector< Move > &
             } else {
                 moves.push_back(Move(point, pt, rochadeRookX));
             }
-        }
+            
+            if (endfig != 0) {
+                break;
+            }
+        } else {
         
         
-        //enpassant
-        if (eflag != 0 && enableEnpassantHitting && endfig == 0) {
-            if (eflag->getFlag() && eflag->getHitPoint().compateTo(pt)) {
-                Move mv = Move(point, pt, rochadeRookX);
-                mv.setHitEnpassant();
-                moves.push_back(mv);
+            //enpassant
+            if (eflag != 0 && enableEnpassantHitting && endfig == 0) {
+                if (eflag->getFlag() && eflag->getHitPoint().compateTo(pt)) {
+                    Move mv = Move(point, pt, rochadeRookX);
+                    mv.setHitEnpassant();
+                    moves.push_back(mv);
+                }
             }
         }
         

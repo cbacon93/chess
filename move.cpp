@@ -3,13 +3,14 @@
 #include "enpassantflag.hpp"
 
 
-Move::Move(Point _from, Point _to, int _rochadeX) :
-from(Point(_from.getX(), _from.getY())), to(Point(_to.getX(), _to.getY()))
-{
+Move::Move(Point _from, Point _to, int _rochadeX) {
     fromfig = 0;
     tofig = 0;
     isRochade = false;
     rochadeX = -1;
+    
+    from = _from;
+    to = _to;
     
     if (_rochadeX >= 0) {
         isRochade = true;

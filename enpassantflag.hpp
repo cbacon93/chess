@@ -9,7 +9,6 @@
 #pragma once
 
 class CFigure;
-
 #include "point.hpp"
 #include "board.hpp"
 
