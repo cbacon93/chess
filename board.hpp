@@ -35,5 +35,4 @@ public:
     CFigure* getFigure(const Point &pt);
     
     int evaluateBoard(int color);
-    int evaluateBoard_old(int color);
 };

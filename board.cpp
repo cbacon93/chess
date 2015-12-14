@@ -95,43 +95,20 @@ int CBoard::evaluateBoard(int color) {
             if (m_board[i][j] != 0) {
                 int figval = m_board[i][j]->getValue();
                 if (m_board[i][j]->getColor() == 0) {
-                    value += figval;
-                    value += j;
+                    value += figval * 100;
+                    
+                    if (figval < 1000)
+                        value += j*figval;
                 } else {
-                    value -= figval;
-                    value -= j;
+                    value -= figval * 100;
+                    
+                    if (figval < 1000)
+                        value -= j*figval;
                 }
             }
         }
     }
 
-    
-    //return value
-    if (color == 1) {
-        return -value;
-    }
-    return value;
-}
-
-
-int CBoard::evaluateBoard_old(int color) {
-    int value = 0;
-    
-    //figure values
-    for (int i=0; i<8; i++)
-    {
-        for (int j=0; j<8; j++)
-        {
-            if (m_board[i][j] != 0) {
-                if (m_board[i][j]->getColor() == 0) {
-                    value += m_board[i][j]->getValue();
-                } else {
-                    value -= m_board[i][j]->getValue();
-                }
-            }
-        }
-    }
-    
     
     //return value
     if (color == 1) {

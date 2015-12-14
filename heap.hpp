@@ -22,7 +22,7 @@ public:
     
     
     void insert(T & item) {
-        unsigned int heapIndex = heapItems.size();
+        unsigned int heapIndex = (unsigned int)heapItems.size();
         item.setHeapIndex(heapIndex);
         heapItems.push_back(&item);
         
@@ -31,7 +31,7 @@ public:
     
     T &removeFirst() {
         T *firstItem = heapItems[0];
-        unsigned int lastIndex = heapItems.size() - 1;
+        unsigned int lastIndex = (unsigned int)heapItems.size() - 1;
         heapItems[0] = heapItems[lastIndex];
         heapItems[0]->setHeapIndex(0);
         heapItems.pop_back();
@@ -54,7 +54,7 @@ public:
     void sortDown(T & item) {
         unsigned int childIndex1 = (unsigned int) (item.getHeapIndex()*2+1);
         unsigned int childIndex2 = (unsigned int) (item.getHeapIndex()*2+2);
-        unsigned int lastIndex = heapItems.size()-1;
+        unsigned int lastIndex = (unsigned int)heapItems.size()-1;
         
         //both indices out of range -> nothing to do
         if (childIndex1 > lastIndex && childIndex2 > lastIndex) {

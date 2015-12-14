@@ -16,16 +16,9 @@ ChessAI::ChessAI():startEbene(2)  {};
 
 
 Move ChessAI::getNextMove(CBoard & board, int color) {
-    startEbene = 4;
+    startEbene = 5;
     Move move = Move();
     doAllMoves(board, color, startEbene, move);
-    return move;
-}
-
-Move ChessAI::getNextMove_old(CBoard & board, int color) {
-    startEbene = 3;
-    Move move = Move();
-    doAllMoves_old(board, color, startEbene, move);
     return move;
 }
 
@@ -35,7 +28,7 @@ bool ChessAI::playerIsCheckmateOrRemis(CBoard & board, int player) {
     Move move = Move();
     int value = doAllMoves(board, player, 2, move);
     
-    if (value <= -7000) {
+    if (value <= -700000) {
         return true;
     }
     return false;
@@ -47,7 +40,7 @@ bool ChessAI::playerIsCheck(CBoard & board, int player) {
     Move move = Move();
     int value = doAllMoves(board, color, 1, move);
     
-    if (value >= 7000) {
+    if (value >= 700000) {
         return true;
     }
     return false;
@@ -144,55 +137,6 @@ int ChessAI::doAllMoves(CBoard & board, int color, int ebenen, Move & savemove, 
             //save move
             if (ebenen == startEbene) {
                 savemove = nextmove;
-            }
-        }
-    }
-    
-    return bestValue;
-}
-
-
-int ChessAI::doAllMoves_old(CBoard & board, int color, int ebenen, Move & savemove, int alpha, int beta) {
-    
-    //get all moves
-    std::vector< Move > moves = std::vector< Move >();
-    for (int i=0; i<8; i++)
-    {
-        for (int j=0; j<8; j++)
-        {
-            CFigure * figure = board.getFigure(i, j);
-            if (figure != 0) {
-                if (figure->getColor() == color) {
-                    Point pt = Point(i, j);
-                    figure->getMoves(pt, board, moves);
-                }
-            }
-        }
-    }
-    
-    //abort
-    if (ebenen == 0 || moves.size() <= 0) {
-        return board.evaluateBoard_old(color) + (int)moves.size();
-    }
-    
-    //do every move
-    int bestValue = alpha;
-    
-    for(int i=0; i< moves.size(); i++) {
-        moves[i].doMove(board);
-        Move move = Move();
-        int value = -doAllMoves(board, (color==0)?1:0 , ebenen -1, move, -beta, -bestValue);
-        moves[i].reverseMove(board);
-        
-        if (value > bestValue) {
-            bestValue = value;
-            
-            if (value >= beta)
-                break;
-            
-            //save move
-            if (ebenen == startEbene) {
-                savemove = moves[i];
             }
         }
     }
