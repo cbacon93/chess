@@ -73,7 +73,7 @@ void CBoard::printBoard() {
 
 
 
-CFigure* CBoard::getFigure(Point &pt) {
+CFigure* CBoard::getFigure(const Point &pt) {
     return m_board[pt.getX()][pt.getY()];
 }
 
@@ -93,6 +93,36 @@ int CBoard::evaluateBoard(int color) {
         for (int j=0; j<8; j++)
         {
             if (m_board[i][j] != 0) {
+                int figval = m_board[i][j]->getValue();
+                if (m_board[i][j]->getColor() == 0) {
+                    value += figval;
+                    value += j;
+                } else {
+                    value -= figval;
+                    value -= j;
+                }
+            }
+        }
+    }
+
+    
+    //return value
+    if (color == 1) {
+        return -value;
+    }
+    return value;
+}
+
+
+int CBoard::evaluateBoard_old(int color) {
+    int value = 0;
+    
+    //figure values
+    for (int i=0; i<8; i++)
+    {
+        for (int j=0; j<8; j++)
+        {
+            if (m_board[i][j] != 0) {
                 if (m_board[i][j]->getColor() == 0) {
                     value += m_board[i][j]->getValue();
                 } else {
@@ -101,7 +131,7 @@ int CBoard::evaluateBoard(int color) {
             }
         }
     }
-
+    
     
     //return value
     if (color == 1) {

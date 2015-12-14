@@ -37,7 +37,7 @@ bool CGame::move() {
     
     
     //players turn
-    if (m_userTurn == m_userColor) {
+    if (m_userTurn == m_userColor && false) {
         while(true) {
             std::cout << "Select a figure: ";
     
@@ -118,7 +118,11 @@ bool CGame::move() {
     //computers turn
     else {
         std::cout << "Calculating..." << std::endl;
-        Move targetmove = cai.getNextMove(m_board, m_userTurn);
+        Move targetmove = (m_userTurn==0)?cai.getNextMove(m_board, m_userTurn):cai.getNextMove_old(m_board, m_userTurn);
+
+        Move stdmove = Move();
+        if (targetmove.compareTo(stdmove)) { std::cout << "Error: no move!" << std::endl;return false; }
+        
         targetmove.doMove(m_board, eflag);
         std::cout << "Computer moved " << targetmove.getMovedFig()->getFigureSign() << " from " << targetmove.getFrom().toString() << " to " << targetmove.getTo().toString() << std::endl;
     }

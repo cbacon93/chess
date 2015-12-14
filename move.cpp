@@ -25,12 +25,12 @@ Move::Move(): from(Point(0, 0)), to(Point(0,0)) {
 }
 
 
-Point Move::getFrom() {
+const Point & Move::getFrom() const {
     return from;
 }
 
 
-Point Move::getTo() {
+const Point & Move::getTo() const {
     return to;
 }
 
@@ -131,6 +131,16 @@ bool Move::compareTo (Move &move) {
         }
     }
     return false;
+}
+
+
+
+int Move::heapCompareTo(Move & mv) {
+    if (moveValue1 > mv.moveValue1 || (moveValue1 == mv.moveValue1 && moveValue2 > mv.moveValue2))
+        return -1;
+    if (moveValue1 < mv.moveValue1 || (moveValue1 == mv.moveValue1 && moveValue2 < mv.moveValue2))
+        return 1;
+    return 0;
 }
 
 
