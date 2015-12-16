@@ -1,6 +1,6 @@
 language: cpp
 
-compiler: gcc
+compiler: g++
 
 notifications:
   email: false
