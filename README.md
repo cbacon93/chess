@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/cbacon93/chess.svg?branch=master)](https://travis-ci.org/cbacon93/chess)
 # chess
 Basic Chess program with AI
 
